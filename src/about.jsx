@@ -2,7 +2,7 @@ import './about.css'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
 import SplashCursor from './components/splashcursor.jsx'
-import LightRays from './components/lightrays.jsx'
+import LightRays from './components/LightRays.jsx'
 import html5 from './assets/Portfolio/html5-fill.png'
 import react from './assets/Portfolio/reactjs-fill.png'
 import figma from './assets/Portfolio/Figma.png'
@@ -18,13 +18,13 @@ import profileImage from './assets/Portfolio/ChatGPT Image Jan 24, 2026, 04_59_5
 function About() {
   return (
     <>
-      <SplashCursor 
-  colors={[
-    { r: 0.137, g: 0.475, b: 0.663 }, // Matches var(--color-2)
-    { r: 0.071, g: 0.239, b: 0.329 }, // Matches var(--color-3)
-  ]}
-  style={{ opacity: 0.1 }} 
-/>
+      <SplashCursor
+        colors={[
+          { r: 0.137, g: 0.475, b: 0.663 }, // Matches var(--color-2)
+          { r: 0.071, g: 0.239, b: 0.329 }, // Matches var(--color-3)
+        ]}
+        style={{ opacity: 0.1 }}
+      />
       <div className="light-rays-wrapper" style={{ height: '100lvh', position: 'fixed', top: 0, left: 0, opacity: 0.2, zIndex: 2, pointerEvents: 'none' }}>
         <LightRays
           raysOrigin="top-center"

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './App.css'
-import LightRays from './components/lightrays.jsx'
+import LightRays from './components/LightRays.jsx'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
 import SplashCursor from './components/splashcursor.jsx'
@@ -13,14 +13,12 @@ function App() {
   return (
     <>
       <SplashCursor
-                colors={[
-                    { r: 0.208, g: 0.714, b: 0.992 }, // #35B6FD (color-1)
-                    { r: 0.165, g: 0.573, b: 0.792 }, // #2A92CA (color-2)
-                    { r: 0.125, g: 0.427, b: 0.596 }, // #206D98 (color-3)
-                    { r: 0.082, g: 0.286, b: 0.396 }, // #154965 (color-4)
-                ]}
-                style={{ opacity: 0.2 }}
-            />
+        colors={[
+          { r: 0.208, g: 0.714, b: 0.992 }, // Matches var(--color-1)
+          { r: 0.137, g: 0.475, b: 0.663 }, // Matches var(--color-2)
+        ]}
+        style={{ opacity: 0.4 }}
+      />
       <div className="light-rays-wrapper" style={{ height: '100lvh', position: 'fixed', top: 0, left: 0, opacity: 0.4, zIndex: 10, pointerEvents: 'none' }}>
         <LightRays
           raysOrigin="top-center"
