@@ -1,0 +1,143 @@
+.about-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100lvh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  z-index: 1;
+  background: linear-gradient(to bottom, var(--color-2), var(--color-3));
+}
+
+.about-section {
+  display: flex;
+  width: 100%;
+  margin: 10rem auto 2rem;
+  align-items: flex-start;
+}
+
+.about-left {
+  flex: 1;
+  max-width: 600px;
+  margin: 1rem 0 0 10rem;
+}
+
+.about-title {
+  font-size: 48px;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.about-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  margin-bottom: 2rem;
+  text-align: justify;
+}
+
+.about-text p {
+  margin-bottom: 1.5rem;
+}
+
+.resume-button {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.resume-button:hover {
+  background: white;
+  color: #014C75;
+  transform: translateY(-2px);
+}
+
+.about-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+}
+
+.tech-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.tech-title {
+  font-size: 36px;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.tech-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+.tech-row {
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.tech-icon {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.tech-icon:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-left {
+    max-width: 100%;
+  }
+
+  .about-title {
+    font-size: 32px;
+  }
+
+  .tech-row {
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tech-title {
+    font-size: 24px;
+  }
+}

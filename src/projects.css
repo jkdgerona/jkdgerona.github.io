@@ -1,0 +1,17 @@
+.projects-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, var(--color-3), var(--color-4));
+}
+
+.projects-content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin:13rem 0 5rem 0;
+}
