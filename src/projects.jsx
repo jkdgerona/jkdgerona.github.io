@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './header';
 import Footer from './footer';
 import './projects.css';
-import LightRays from './components/lightrays.jsx'
+import LightRays from './components/LightRays.jsx'
 import SplashCursor from './components/splashcursor';
 import MagicBento from './components/MagicBento.jsx';
 
