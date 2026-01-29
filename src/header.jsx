@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './header.css'
 import logo from './assets/Portfolio/Logo2.png'
-import dots from './assets/Portfolio/frame 10.png'
+import dots from './assets/Portfolio/Frame 10.png'
 import play from './assets/Portfolio/9.png'
 import BubbleOverlay from './components/BubbleMenu.jsx'
 
