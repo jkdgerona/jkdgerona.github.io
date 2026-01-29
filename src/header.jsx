@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './header.css'
-import logo from './assets/Portfolio/logo2.png'
+import logo from './assets/Portfolio/Logo2.png'
 import dots from './assets/Portfolio/frame 10.png'
 import play from './assets/Portfolio/9.png'
 import BubbleOverlay from './components/BubbleMenu.jsx'
@@ -27,7 +27,7 @@ const items = [
     rotation: 8,
     hoverStyles: { bgColor: '#f59e0b', textColor: '#ffffff' }
   },
-  
+
 ];
 
 function Header() {
@@ -36,12 +36,12 @@ function Header() {
   return (
     <>
 
-      <BubbleOverlay 
-        isOpen={isMenuOpen} 
-        items={items} 
+      <BubbleOverlay
+        isOpen={isMenuOpen}
+        items={items}
         onClose={() => setIsMenuOpen(false)}
       />
-      
+
       <header className="header">
         <div className="header-container">
           <div className="logo">
