@@ -1,5 +1,5 @@
 .about-content {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -23,8 +23,9 @@
 
 .about-left {
   flex: 1;
-  max-width: 600px;
-  margin: 1rem 0 0 10rem;
+  max-width: 750px;
+  margin: 1rem 0 0 17rem;
+  zoom: 0.9;
 }
 
 .about-title {
@@ -68,11 +69,14 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding-top: 4rem;
 }
 
 .profile-image {
   width: 100%;
   height: auto;
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 .tech-section {
@@ -80,10 +84,26 @@
   width: 100%;
   margin: 4rem auto;
   text-align: center;
+  margin-bottom: 10rem;
 }
 
 .tech-title {
-  font-size: 36px;
+  font-size: 48px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.tech-subtitle {
+  font-size: 18px;
+  margin-bottom: 9rem;
+  text-align: center;
+  font-weight: 100;
+  color: #e0e0e0;
+}
+
+.tech-category {
+  font-size: 20px;
+  font-weight: 600;
   margin-bottom: 3rem;
   text-align: center;
 }
@@ -91,7 +111,7 @@
 .tech-icons {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -107,24 +127,126 @@
   height: 100px;
   object-fit: contain;
   transition: transform 0.3s ease;
+  position: relative;
 }
 
 .tech-icon:hover {
   transform: scale(1.1);
 }
 
-@media (max-width: 768px) {
+.tech-icon.glowing {
+  cursor: pointer;
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1)) drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+  }
+}
+
+.tech-icon.glowing:hover {
+  animation: shine-fast 0.5s infinite;
+}
+
+@keyframes shine-fast {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(255, 215, 0, 1)) drop-shadow(0 0 40px rgba(255, 215, 0, 1));
+  }
+}
+
+@media (max-width: 1200px) {
+  .about-left {
+    margin: 1rem 0 0 8rem;
+  }
+
+  .about-title {
+    font-size: 40px;
+  }
+
+  .tech-icons {
+    gap: 2.5rem;
+  }
+
+  .tech-row {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
   .about-section {
     flex-direction: column;
-    gap: 2rem;
+    margin: 8rem auto 2rem;
+    align-items: center;
   }
 
   .about-left {
+    margin: 1rem 2rem 0;
     max-width: 100%;
   }
 
   .about-title {
+    font-size: 36px;
+  }
+
+  .tech-section {
+    margin: 3rem auto;
+  }
+
+  .tech-title {
     font-size: 32px;
+  }
+
+  .tech-icon {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    padding: 1rem;
+  }
+
+  .about-section {
+    margin: 6rem auto 1.5rem;
+  }
+
+  .about-left {
+    margin: 1rem 1rem 0;
+  }
+
+  .about-title {
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text {
+    font-size: 14px;
+  }
+
+  .resume-button {
+    font-size: 16px;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .tech-section {
+    margin: 2rem auto;
+  }
+
+  .tech-title {
+    font-size: 24px;
+    margin-bottom: 2rem;
+  }
+
+  .tech-icons {
+    gap: 2rem;
   }
 
   .tech-row {
@@ -136,8 +258,47 @@
     width: 60px;
     height: 60px;
   }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    margin: 5rem auto 1rem;
+  }
+
+  .about-left {
+    margin: 0.5rem;
+  }
+
+  .about-title {
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
+
+  .about-text {
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+  }
+
+  .resume-button {
+    font-size: 14px;
+    padding: 0.5rem 1.25rem;
+  }
 
   .tech-title {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-icons {
+    gap: 1.5rem;
+  }
+
+  .tech-row {
+    gap: 1.5rem;
+  }
+
+  .tech-icon {
+    width: 50px;
+    height: 50px;
   }
 }

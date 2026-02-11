@@ -1,21 +1,30 @@
+import { useNavigate } from 'react-router-dom'
 import './about.css'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
 import SplashCursor from './components/splashcursor.jsx'
 import LightRays from './components/LightRays.jsx'
-import html5 from './assets/Portfolio/html5-fill.png'
-import react from './assets/Portfolio/reactjs-fill.png'
-import figma from './assets/Portfolio/Figma.png'
-import javascript from './assets/Portfolio/javascript-fill.png'
-import css3 from './assets/Portfolio/css3-fill.png'
-import gitBranch from './assets/Portfolio/git-branch-fill.png'
-import copilot from './assets/Portfolio/copilot-fill.png'
-import github from './assets/Portfolio/github-fill.png'
-import treasureMap from './assets/Portfolio/treasure-map-fill.png'
-import copyright from './assets/Portfolio/copyright-fill.png'
+import {
+  FaJava, FaHtml5, FaCss3Alt, FaNodeJs,
+  FaReact, FaGithub, FaFigma
+} from "react-icons/fa";
+import {
+  SiC, SiCplusplus, SiCanva, SiPostgresql
+} from "react-icons/si";
+import { PiFileCSharp } from "react-icons/pi";
+import { TbBrandPython } from "react-icons/tb";
+import { RiJavascriptLine } from "react-icons/ri";
+import { GrMysql } from "react-icons/gr";
+import { GiTreasureMap } from "react-icons/gi";
 import profileImage from './assets/Portfolio/ChatGPT Image Jan 24, 2026, 04_59_57 PM.png'
+import AnimatedContent from './components/AnimatedContent.jsx'
 
 function About() {
+  const navigate = useNavigate()
+
+  const handleTreasureClick = () => {
+    navigate('/hidden') // or whatever your hidden page route is
+  }
   return (
     <>
       <SplashCursor
@@ -44,60 +53,229 @@ function About() {
       </div>
 
       <main className="about-content">
-        <Header />
-
         <section className="about-section">
+
+          {/* left side */}
           <div className="about-left">
-            <h1 className="about-title">About KENET</h1>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={2}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0}
+            >
+              <div><h1 className="about-title">About KENET</h1></div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={2}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.5}
+            >
+              <div className="about-text">
+                <p>
+                  I am a third-year Computer Science student at Ateneo de Davao University and an active student leader. I have completed three years of the Computer Science curriculum and have consistently maintained strong academic standing as a President’s List and Dean’s List awardee since my first year.
+                </p>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={2}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.8}
+            >
+              <div className="about-text">
+                <p>
+                  I am involved in multiple student organizations, including the Student Executive Council
+                  of the Computer Studies Department, BAHAGHARI political party, and two SAMAHAN
+                  departments. I am also helping found the DOST–Ateneo student group. Through these, along with my passion for dance and sports, I have
+                  developed leadership, teamwork, and communication skills while working with people from
+                  different backgrounds.
+                </p>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={2}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={1}
+            >
+              <div className="about-text">
+                <p>
+                  I have experience or have taken courses in Programming, Discrete Structures, DSA, Object Oriented
+                  Programming, Information Management, Application Development, Event-Driven Programming, Software Engineering,
+                  Machine Learning, and Figma Design. My technical skills include
+                  Java, JavaScript, C, C++, C#, Python, HTML, CSS, Node.js, React, SQL/MySQLite, GitHub,
+                  Figma, and Canva.
+                </p>
+              </div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={50}
+              direction="vertical"
+              reverse={false}
+              duration={2}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={1.5}
+            >
+              <div><button className="resume-button">RÉSUMÉ</button></div>
+            </AnimatedContent>
 
-            <div className="about-text">
-              <p>
-                Figma file management remains one of Figma's most significant challenges. Many designers report
-                spending significant time trying to organize files in Figma rather than focusing on actual design
-                work. If I didn't know better, I might even call it a growth strategy, gouging users out of money
-                for having project files... But that would be cynical.
-              </p>
-
-              <p>
-                Navigating through projects sometimes feels cumbersome, especially when working on multiple
-                projects simultaneously. The current Figma folder system lacks robust structures and intuitive
-                metadata sorting mechanisms.
-              </p>
-
-              <p>
-                Given Figma's strength in other areas of the design experience, there's significant potential for
-                improvement in file organization and management—creating a more streamlined and intuitive
-                workflow to improve designer productivity—something the community has consistently raised through Figma
-                feature feedback channels.
-              </p>
-            </div>
-
-            <button className="resume-button">RÉSUMÉ</button>
           </div>
 
+          {/* right side */}
+
+
           <div className="about-right">
-            <img src={profileImage} alt="Kenet" className="profile-image" />
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={4}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0}
+            >
+              <div>  <img src={profileImage} alt="Kenet" className="profile-image" /></div>
+            </AnimatedContent>
           </div>
         </section>
 
         <section className="tech-section">
-          <h2 className="tech-title">technologies I fuck with...</h2>
+          <AnimatedContent
+            distance={100}
+            direction="vertical"
+            reverse={false}
+            duration={0.8}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            scale={1}
+            threshold={0.1}
+            delay={0}
+          >
+            <div><h2 className="tech-title">technologies I fuck with...</h2>
+                  <h2 className="tech-subtitle">non-stop learning from school to online courses</h2></div>
+          </AnimatedContent>
 
           <div className="tech-icons">
-            <div className="tech-row">
-              <img src={html5} alt="HTML5" className="tech-icon" />
-              <img src={react} alt="React" className="tech-icon" />
-              <img src={figma} alt="Figma" className="tech-icon" />
-              <img src={javascript} alt="JavaScript" className="tech-icon" />
-              <img src={css3} alt="CSS3" className="tech-icon" />
-            </div>
-            <div className="tech-row">
-              <img src={gitBranch} alt="Git" className="tech-icon" />
-              <img src={copilot} alt="GitHub Copilot" className="tech-icon" />
-              <img src={github} alt="GitHub" className="tech-icon" />
-              <img src={treasureMap} alt="Other" className="tech-icon" />
-              <img src={copyright} alt="Copyright" className="tech-icon" />
-            </div>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={1}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.5}
+            > 
+              <h1 className="tech-category">Programming & Scripting Languages</h1>
+              <div className="tech-row">
+                <FaJava className="tech-icon" title="Java" />
+                <RiJavascriptLine className="tech-icon" title="JavaScript" />
+                <SiC className="tech-icon" title="C" />
+                <SiCplusplus className="tech-icon" title="C++" />
+                <PiFileCSharp className="tech-icon" title="C#" />
+                <TbBrandPython className="tech-icon" title="Python" />
+                <FaHtml5 className="tech-icon" title="HTML5" />
+              </div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={1}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.5}
+            > 
+              <h1 className="tech-category">Web Development</h1>
+              <div className="tech-row">
+                <FaHtml5 className="tech-icon" title="HTML5" />
+                <FaCss3Alt className="tech-icon" title="CSS3" />
+                <FaNodeJs className="tech-icon" title="Node.js" />
+                <FaReact className="tech-icon" title="React" />
+              </div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={1}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.5}
+            >
+              <h1 className="tech-category">Databases & Version Control</h1>
+              <div className="tech-row">
+                <GrMysql className="tech-icon" title="MySQL" />
+                <SiPostgresql className="tech-icon" title="PostgreSQL" />
+                <FaGithub className="tech-icon" title="GitHub" />
+              </div>
+            </AnimatedContent>
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              reverse={false}
+              duration={1}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={0.5}
+            >
+              <h1 className="tech-category">Design & Other Tools</h1>
+              <div className="tech-row">
+                <FaFigma className="tech-icon" title="Figma" />
+                <SiCanva className="tech-icon" title="Canva" />
+                <GiTreasureMap
+                  className="tech-icon glowing"
+                  onClick={handleTreasureClick}
+                  title="Hidden Treasure"
+                  style={{ cursor: 'pointer' }}
+                />
+              </div>
+            </AnimatedContent>
+
           </div>
         </section>
 

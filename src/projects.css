@@ -1,4 +1,8 @@
 .projects-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -13,5 +17,26 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    margin:13rem 0 5rem 0;
+    margin: 15em 0 10em 0 ;
+}
+
+@media (max-width: 1024px) {
+    .projects-content {
+        margin: 12em 0 8em 0;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-content {
+        margin: 10em 0 6em 0;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-content {
+        margin: 8em 0 5em 0;
+        padding: 0.75rem;
+    }
 }

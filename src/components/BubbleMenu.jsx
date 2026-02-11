@@ -1,22 +1,22 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import './BubbleMenu.css';
-import GlassSurface from './GlassSurface'; // Ensure this path is correct
+import GlassSurface from './GlassSurface';
 
 const DEFAULT_ITEMS = [
-  { label: 'home', href: '#', rotation: -8 },
-  { label: 'about', href: '#', rotation: 8 },
-  { label: 'projects', href: '#', rotation: 8 },
+  { label: 'home', href: '/', rotation: -8 },
+  { label: 'about', href: '/about', rotation: 8 },
+  { label: 'projects', href: '/projects', rotation: 8 },
 ];
 
 export default function BubbleOverlay({
   isOpen,
   onClose,
   items,
-  animationEase = 'back.out(1.5)',
-  animationDuration = 0.5,
-  staggerDelay = 0.12,
-  // Default glass colors (can be overridden)
+  animationEase = 'back.out(1.7)',
+  animationDuration = 0.4,
+  staggerDelay = 0.08,
   menuContentColor = '#ffffff', 
 }) {
   const overlayRef = useRef(null);
@@ -33,60 +33,50 @@ export default function BubbleOverlay({
     if (!overlay) return;
 
     if (isOpen) {
-      gsap.set(overlay, { display: 'flex', autoAlpha: 1 });
+      // Show overlay and enable pointer events
+      gsap.set(overlay, { display: 'flex', autoAlpha: 1, pointerEvents: 'auto' });
 
       bubbles.forEach((bubble, i) => {
         const rotation = menuItems[i]?.rotation || 0;
         gsap.set(bubble, { scale: 0, rotation: rotation });
       });
       
-      gsap.set(labels, { y: 24, autoAlpha: 0 });
+      gsap.set(labels, { y: 15, autoAlpha: 0 });
 
-      bubbles.forEach((bubble, i) => {
-        const delay = i * staggerDelay;
-        const rotation = menuItems[i]?.rotation || 0;
-        
-        const tl = gsap.timeline({ delay });
+      // Faster, smoother staggering
+      const tl = gsap.timeline();
+      
+      tl.to(bubbles, {
+        scale: 1,
+        rotation: (i) => menuItems[i]?.rotation || 0,
+        duration: animationDuration,
+        ease: animationEase,
+        stagger: staggerDelay
+      });
 
-        tl.to(bubble, {
-          scale: 1,
-          rotation: rotation,
-          duration: animationDuration,
-          ease: animationEase
-        });
+      tl.to(labels, {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+        stagger: staggerDelay
+      }, "-=0.3");
 
-        if (labels[i]) {
-          tl.to(labels[i], {
-            y: 0,
-            autoAlpha: 1,
-            duration: animationDuration,
-            ease: 'power3.out'
-          }, "-=0.4");
+    } else {
+      // Close animation
+      gsap.to(overlay, {
+        autoAlpha: 0,
+        duration: 0.3,
+        onComplete: () => {
+          gsap.set(overlay, { display: 'none', pointerEvents: 'none' });
         }
       });
 
-    } else {
-      if (bubbles.length) {
-        const rotationValues = bubbles.map((_, i) => menuItems[i]?.rotation || 0);
-        
-        gsap.to(bubbles, {
-          scale: 0,
-          rotation: (i) => rotationValues[i],
-          duration: 0.3,
-          ease: 'power3.in'
-        });
-        
-        gsap.to(labels, {
-          autoAlpha: 0,
-          duration: 0.2
-        });
-
-        gsap.delayedCall(0.3, () => {
-          gsap.set(overlay, { display: 'none' });
-        });
-      } else {
-        gsap.set(overlay, { display: 'none' });
-      }
+      gsap.to(bubbles, {
+        scale: 0,
+        duration: 0.2,
+        ease: 'power2.in'
+      });
     }
   }, [isOpen, animationEase, animationDuration, staggerDelay, menuItems]);
 
@@ -95,36 +85,36 @@ export default function BubbleOverlay({
       ref={overlayRef}
       className="bubble-menu-items fixed"
       style={{ display: 'none', zIndex: 9999, background: 'rgba(0, 0, 0, 0.4)' }}
+      // Clicking the dark background triggers onClose
       onClick={onClose}
     >
-      <ul className="pill-list" onClick={(e) => e.stopPropagation()}>
+      <ul 
+        className="pill-list" 
+        // Important: Stop clicks on the menu container from closing the menu
+        onClick={(e) => e.stopPropagation()}
+      >
         {menuItems.map((item, idx) => (
           <li key={idx} className="pill-col">
-            <a
-              href={item.href}
+            <Link
+              to={item.href}
               className="pill-link"
               style={{
                 '--item-rot': `${item.rotation ?? 0}deg`,
                 '--pill-color': menuContentColor,
               }}
               ref={el => (bubblesRef.current[idx] = el)}
+              onClick={onClose}
             >
-              {/* GLASS SURFACE IMPLEMENTATION */}
               <GlassSurface
                 width="100%"
                 height="100%"
-                borderRadius={100} // High value for pill shape
-                // Glass Effects Configuration
-                displace={0.4}
-                distortionScale={-160}
-                redOffset={5}
-                greenOffset={10}
-                blueOffset={20}
+                borderRadius={100}
+                displace={0.2}
+                distortionScale={-120} // Reduced for performance
                 brightness={55}
-                opacity={0.8} // Slightly transparent
-                mixBlendMode="normal" // 'screen' might be too washed out on light backgrounds
+                opacity={0.8}
+                forceFallback={!isOpen} // Use simple CSS blur while animating
               >
-                {/* Inner Content Container handles the padding/sizing */}
                 <div className="glass-pill-inner">
                   <span 
                     className="pill-label"
@@ -134,7 +124,7 @@ export default function BubbleOverlay({
                   </span>
                 </div>
               </GlassSurface>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

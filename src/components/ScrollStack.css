@@ -1,0 +1,77 @@
+.scroll-stack-scroller {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  will-change: scroll-position;
+}
+
+.scroll-stack-inner {
+  padding: 24.5vh 2rem 40vh; 
+  min-height: 150vh;
+}
+
+.scroll-stack-card {
+  transform-origin: top center;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  height: 25rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 3rem;
+  border-radius: 40px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.scroll-stack-end {
+  width: 100%;
+  height: 50vh; /* Extra space at bottom to allow last card to pin */
+}
+
+@media (max-width: 1024px) {
+  .scroll-stack-card {
+    height: 22rem;
+    padding: 2.5rem;
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-stack-inner {
+    padding: 24.5vh 1.5rem 30vh;
+  }
+
+  .scroll-stack-card {
+    height: 20rem;
+    padding: 2rem;
+    margin: 15px auto;
+    border-radius: 30px;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-stack-inner {
+    padding: 24.5vh 1rem 25vh;
+  }
+
+  .scroll-stack-card {
+    height: 18rem;
+    padding: 1.5rem;
+    margin: 10px auto;
+    border-radius: 25px;
+  }
+
+  .scroll-stack-end {
+    height: 30vh;
+  }
+}

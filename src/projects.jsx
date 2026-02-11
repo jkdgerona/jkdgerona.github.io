@@ -5,6 +5,7 @@ import './projects.css';
 import LightRays from './components/LightRays.jsx'
 import SplashCursor from './components/splashcursor';
 import MagicBento from './components/MagicBento.jsx';
+import AnimatedContent from './components/AnimatedContent.jsx';
 
 function Projects() {
     return (
@@ -35,26 +36,37 @@ function Projects() {
                 style={{ opacity: 0.15 }} // Lower opacity for dark mode feel
             />
             <div className="projects-page">
-                <Header />
                 <main className="projects-content">
-
-                    <MagicBento
-                        textAutoHide={true}
-                        enableStars
-                        enableSpotlight
-                        enableBorderGlow={true}
-                        enableTilt={true}
-                        enableMagnetism={true}
-                        clickEffect
-                        spotlightRadius={400}
-                        particleCount={12}
-                        glowColor="53, 182, 253"
-                        disableAnimations={false}
-                    />
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        duration={1.5}
+                        ease="power3.out"
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1}
+                        threshold={0.1}
+                        delay={0}
+                    >
+                        <div><MagicBento
+                            textAutoHide={true}
+                            enableStars
+                            enableSpotlight
+                            enableBorderGlow={true}
+                            enableTilt={true}
+                            enableMagnetism={true}
+                            clickEffect
+                            spotlightRadius={400}
+                            particleCount={12}
+                            glowColor="53, 182, 253"
+                            disableAnimations={false}
+                        /></div>
+                    </AnimatedContent>
                 </main>
-                <Footer style={{ position: 'relative', bottom: 0, width: '100%' }}/>
+                <Footer style={{ position: 'relative', bottom: 0, width: '100%' }} />
             </div>
-                            
+
         </>
     );
 }

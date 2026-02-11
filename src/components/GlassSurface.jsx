@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef, useId } from 'react';
+import { useEffect, useState, useRef, useId, useMemo } from 'react';
 import './GlassSurface.css';
 
 const GlassSurface = ({
   children,
-  width = 200,
-  height = 80,
+  width = '100%',
+  height = '100%',
   borderRadius = 20,
   borderWidth = 0.07,
   brightness = 50,
@@ -31,22 +31,16 @@ const GlassSurface = ({
   const blueGradId = `blue-grad-${uniqueId}`;
 
   const [svgSupported, setSvgSupported] = useState(false);
-
   const containerRef = useRef(null);
-  const feImageRef = useRef(null);
-  const redChannelRef = useRef(null);
-  const greenChannelRef = useRef(null);
-  const blueChannelRef = useRef(null);
-  const gaussianBlurRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ w: 400, h: 200 });
 
-  const generateDisplacementMap = () => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    const actualWidth = rect?.width || 400;
-    const actualHeight = rect?.height || 200;
-    const edgeSize = Math.min(actualWidth, actualHeight) * (borderWidth * 0.5);
+  // 1. Optimize: Memoize the SVG data URI to prevent re-parsing strings every render
+  const displacementMapUri = useMemo(() => {
+    const { w, h } = dimensions;
+    const edgeSize = Math.min(w, h) * (borderWidth * 0.5);
 
     const svgContent = `
-      <svg viewBox="0 0 ${actualWidth} ${actualHeight}" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="${redGradId}" x1="100%" y1="0%" x2="0%" y2="0%">
             <stop offset="0%" stop-color="#0000"/>
@@ -57,112 +51,44 @@ const GlassSurface = ({
             <stop offset="100%" stop-color="blue"/>
           </linearGradient>
         </defs>
-        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" fill="black"></rect>
-        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${borderRadius}" fill="url(#${redGradId})" />
-        <rect x="0" y="0" width="${actualWidth}" height="${actualHeight}" rx="${borderRadius}" fill="url(#${blueGradId})" style="mix-blend-mode: ${mixBlendMode}" />
-        <rect x="${edgeSize}" y="${edgeSize}" width="${actualWidth - edgeSize * 2}" height="${actualHeight - edgeSize * 2}" rx="${borderRadius}" fill="hsl(0 0% ${brightness}% / ${opacity})" style="filter:blur(${blur}px)" />
+        <rect x="0" y="0" width="${w}" height="${h}" fill="black"></rect>
+        <rect x="0" y="0" width="${w}" height="${h}" rx="${borderRadius}" fill="url(#${redGradId})" />
+        <rect x="0" y="0" width="${w}" height="${h}" rx="${borderRadius}" fill="url(#${blueGradId})" style="mix-blend-mode: ${mixBlendMode}" />
+        <rect x="${edgeSize}" y="${edgeSize}" width="${w - edgeSize * 2}" height="${h - edgeSize * 2}" rx="${borderRadius}" fill="hsl(0 0% ${brightness}% / ${opacity})" style="filter:blur(${blur}px)" />
       </svg>
     `;
-
     return `data:image/svg+xml,${encodeURIComponent(svgContent)}`;
-  };
+  }, [dimensions, borderRadius, borderWidth, brightness, opacity, blur, mixBlendMode, redGradId, blueGradId]);
 
-  const updateDisplacementMap = () => {
-    feImageRef.current?.setAttribute('href', generateDisplacementMap());
-  };
-
+  // 2. Optimize: Debounced ResizeObserver to prevent layout thrashing
   useEffect(() => {
-    
-    updateDisplacementMap();
-    [
-      { ref: redChannelRef, offset: redOffset },
-      { ref: greenChannelRef, offset: greenOffset },
-      { ref: blueChannelRef, offset: blueOffset }
-    ].forEach(({ ref, offset }) => {
-      if (ref.current) {
-        ref.current.setAttribute('scale', (distortionScale + offset).toString());
-        ref.current.setAttribute('xChannelSelector', xChannel);
-        ref.current.setAttribute('yChannelSelector', yChannel);
+    if (!containerRef.current) return;
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry) {
+        // Use requestAnimationFrame to sync with browser painting
+        requestAnimationFrame(() => {
+          setDimensions({
+            w: entry.contentRect.width || 400,
+            h: entry.contentRect.height || 200
+          });
+        });
       }
     });
 
-    gaussianBlurRef.current?.setAttribute('stdDeviation', displace.toString());
-  }, [
-    width,
-    height,
-    borderRadius,
-    borderWidth,
-    brightness,
-    opacity,
-    blur,
-    displace,
-    distortionScale,
-    redOffset,
-    greenOffset,
-    blueOffset,
-    xChannel,
-    yChannel,
-    mixBlendMode
-  ]);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const resizeObserver = new ResizeObserver(() => {
-      setTimeout(updateDisplacementMap, 0);
-    });
-
-    resizeObserver.observe(containerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current) return;
-
-    const resizeObserver = new ResizeObserver(() => {
-      setTimeout(updateDisplacementMap, 0);
-    });
-
-    resizeObserver.observe(containerRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
+    const supportsSVG = () => {
+      if (typeof window === 'undefined') return false;
+      const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+      return !forceFallback && !isWebkit && CSS.supports('backdrop-filter', 'blur(1px)');
     };
-  }, []);
-
-  useEffect(() => {
-    setTimeout(updateDisplacementMap, 0);
-  }, [width, height]);
-
-  useEffect(() => {
-    // Update the logic to respect forceFallback
-    if (forceFallback) {
-      setSvgSupported(false);
-    } else {
-      setSvgSupported(supportsSVGFilters());
-    }
+    setSvgSupported(supportsSVG());
   }, [forceFallback]);
-
-  const supportsSVGFilters = () => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      return false;
-    }
-
-    const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-    const isFirefox = /Firefox/.test(navigator.userAgent);
-
-    if (isWebkit || isFirefox) {
-      return false;
-    }
-
-    const div = document.createElement('div');
-    div.style.backdropFilter = `url(#${filterId})`;
-
-    return div.style.backdropFilter !== '';
-  };
 
   const containerStyle = {
     ...style,
@@ -180,57 +106,26 @@ const GlassSurface = ({
       className={`glass-surface ${svgSupported ? 'glass-surface--svg' : 'glass-surface--fallback'} ${className}`}
       style={containerStyle}
     >
-      <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
-            <feImage ref={feImageRef} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
+      {svgSupported && (
+        <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
+          <filter id={filterId} colorInterpolationFilters="sRGB" x="0" y="0" width="100%" height="100%">
+            <feImage href={displacementMapUri} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
+            
+            <feDisplacementMap in="SourceGraphic" in2="map" scale={distortionScale + redOffset} xChannelSelector={xChannel} yChannelSelector={yChannel} result="red" />
+            <feColorMatrix in="red" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="redOnly"/>
 
-            <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" id="redchannel" result="dispRed" />
-            <feColorMatrix
-              in="dispRed"
-              type="matrix"
-              values="1 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 1 0"
-              result="red"
-            />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale={distortionScale + greenOffset} xChannelSelector={xChannel} yChannelSelector={yChannel} result="green" />
+            <feColorMatrix in="green" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="greenOnly"/>
 
-            <feDisplacementMap
-              ref={greenChannelRef}
-              in="SourceGraphic"
-              in2="map"
-              id="greenchannel"
-              result="dispGreen"
-            />
-            <feColorMatrix
-              in="dispGreen"
-              type="matrix"
-              values="0 0 0 0 0
-                      0 1 0 0 0
-                      0 0 0 0 0
-                      0 0 0 1 0"
-              result="green"
-            />
+            <feDisplacementMap in="SourceGraphic" in2="map" scale={distortionScale + blueOffset} xChannelSelector={xChannel} yChannelSelector={yChannel} result="blue" />
+            <feColorMatrix in="blue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blueOnly"/>
 
-            <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" id="bluechannel" result="dispBlue" />
-            <feColorMatrix
-              in="dispBlue"
-              type="matrix"
-              values="0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 1 0 0
-                      0 0 0 1 0"
-              result="blue"
-            />
-
-            <feBlend in="red" in2="green" mode="screen" result="rg" />
-            <feBlend in="rg" in2="blue" mode="screen" result="output" />
-            <feGaussianBlur ref={gaussianBlurRef} in="output" stdDeviation="0.7" />
+            <feBlend in="redOnly" in2="greenOnly" mode="screen" result="rg" />
+            <feBlend in="rg" in2="blueOnly" mode="screen" result="output" />
+            <feGaussianBlur in="output" stdDeviation={displace} />
           </filter>
-        </defs>
-      </svg>
-
+        </svg>
+      )}
       <div className="glass-surface__content">{children}</div>
     </div>
   );
