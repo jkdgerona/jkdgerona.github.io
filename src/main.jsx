@@ -7,6 +7,7 @@ import App from './App.jsx'
 import About from './about.jsx'
 import Projects from './projects.jsx'
 import Hidden from './hidden.jsx'
+import ProjectDetails from './ProjectDetails.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/hidden" element={<Hidden />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

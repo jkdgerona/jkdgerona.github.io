@@ -112,7 +112,6 @@
 
 /* Custom Card Styling for the Treasure look */
 .treasure-card {
-    background: rgba(3, 46, 92, 0.2);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
@@ -130,6 +129,37 @@
     padding-right: 2rem;
     padding-bottom: 40vh;
 }
+
+.background-card {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.background-card::before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 0;
+    border-radius: 40px;
+}
+
+.background-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.card-fact-1 { background-image: url('./assets/facts/486611510_1098880395585496_5204341198694754676_n.jpg'); }
+.card-fact-2 { background-image: url('./assets/facts/569213083_2288720071568480_1107390475550207429_n.jpg'); }
+.card-fact-3 { background-image: url('./assets/facts/iStock-mathproblems.jpg'); }
+.card-fact-4 { background-image: url('./assets/facts/GERONA_CREATIVES.jpg'); }
+.card-fact-5 { background-image: url('./assets/facts/539132449_1222064283267106_9092184596617139566_n.jpg'); }
+.card-fact-6 { background-image: url('./assets/facts/553938501_1428348228243745_4365168425182920522_n.jpg'); }
 
 @media (max-width: 1024px) {
     #treasure-image {

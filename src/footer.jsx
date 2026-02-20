@@ -19,7 +19,7 @@ function Footer() {
           <img src={linkedin} alt="LinkedIn" />
           <img src={mail} alt="mail" />
         </div>
-      </div>    
+      </div>
     </footer>
   )
 }

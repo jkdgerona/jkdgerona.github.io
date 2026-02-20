@@ -1,0 +1,135 @@
+
+.project-details-container {
+  position: absolute;
+  top: 0;
+  background: linear-gradient(to bottom, var(--color-3), var(--color-4));
+  z-index: 1;
+  justify-content: flex-start; 
+  gap: 0;                     
+  padding-top: 6rem;         
+}
+
+.project-details-wrapper {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 0rem 1.5rem 8rem 1.5rem;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0;
+  z-index: 10;
+}
+
+.back-button {
+  margin-top: 0;
+  margin-bottom: 3rem;
+  color: white;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  transition: all 0.3s;
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+  z-index: 100;
+  width: fit-content;
+}
+
+.image-main{
+    max-width: 70rem;
+    height: auto;
+    border-radius: 20px;
+    align-self: center;
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.back-button:hover {
+  color: #013B5B;
+  text-decoration: line-through;
+}
+
+.details-card {
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .details-card {
+    padding: 2rem;
+  }
+}
+
+.details-content {
+  position: relative;
+  z-index: 10;
+}
+
+.project-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #35B6FD;
+
+}
+
+@media (min-width: 768px) {
+  .project-title {
+    font-size: 3rem;
+  }
+}
+
+.project-description {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #123D54;
+  padding-bottom: 1.5rem;
+}
+
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  color: #d1d5db;
+  line-height: 1.625;
+}
+
+.overview-title {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.overview-text {
+  margin: 0;
+}
+
+.tech-stack-section {
+  margin-top: 2rem;
+}
+
+
+.tech-stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.tech-badge {
+  padding: 0.25rem 1rem;
+  background-color: rgba(18, 61, 84, 0.5);
+  border: 1px solid #123D54;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}

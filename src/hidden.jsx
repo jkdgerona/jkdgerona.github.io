@@ -7,6 +7,7 @@ import ScrollStack, { ScrollStackItem } from './components/ScrollStack.jsx';
 import TreasureChest from './assets/Portfolio/TreasureChest.svg';
 import './hidden.css';
 import AnimatedContent from './components/AnimatedContent.jsx';
+import factImg1 from './assets/facts/486611510_1098880395585496_5204341198694754676_n.jpg';
 
 function Hidden() {
     const [showFirst, setShowFirst] = useState(true);
@@ -111,28 +112,23 @@ function Hidden() {
                         </div>
 
                         <ScrollStack stackPosition="320">
-                            <ScrollStackItem itemClassName="treasure-card">
-                                <img src="src\assets\Portfolio\bubble.png" alt="Bubble 1" style={{height: '100%'}}/>
+                            <ScrollStackItem itemClassName="treasure-card background-card card-fact-1">
+                                <h2>I am a Student Leader</h2>
                             </ScrollStackItem>
-                            <ScrollStackItem itemClassName="treasure-card">
-                                <h2>Card 2</h2>
-                                <p>Ancient Rubies</p>
+                            <ScrollStackItem itemClassName="treasure-card background-card card-fact-2">
+                                <h2>I love Developing</h2>
                             </ScrollStackItem>
-                            <ScrollStackItem itemClassName="treasure-card">
-                                <h2>Card 3</h2>
-                                <p>Legendary Artifacts</p>
+                            <ScrollStackItem itemClassName="treasure-card background-card card-fact-3">
+                                <h2>I love Math</h2>
                             </ScrollStackItem>
-                            <ScrollStackItem itemClassName="treasure-card">
-                                <h2>Card 3</h2>
-                                <p>Legendary Artifacts</p>
+                            <ScrollStackItem itemClassName="treasure-card background-card card-fact-4">
+                                <h2>I Dance</h2>
                             </ScrollStackItem>
-                            <ScrollStackItem itemClassName="treasure-card">
-                                <h2>Card 3</h2>
-                                <p>Legendary Artifacts</p>
+                            <ScrollStackItem itemClassName="treasure-card background-card card-fact-5">
+                                <h2>I Play Sports</h2>
                             </ScrollStackItem>
-                            <ScrollStackItem itemClassName="treasure-card">
-                                <h2>Card 3</h2>
-                                <p>Legendary Artifacts</p>
+                            <ScrollStackItem itemClassName="treasure-card background-card card-fact-6">
+                                <h2>I love cats</h2>
                             </ScrollStackItem>
                         </ScrollStack>
                     </div>
