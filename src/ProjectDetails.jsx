@@ -5,6 +5,7 @@ import './ProjectDetails.css';
 import LightRays from './components/LightRays.jsx';
 import SplashCursor from './components/splashcursor.jsx';
 import Footer from './footer.jsx';
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const ProjectDetails = () => {
   const { state } = useLocation();
@@ -74,9 +75,8 @@ const ProjectDetails = () => {
 
             <div className="details-content">
             <div style={{display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap'}}>
-                <h1 className="project-title">
-                {project.title}
-              </h1>
+              <div style={{display: 'flex', flexDirection: 'column'}}>
+              <h1 className="project-title">{project.title}</h1>
               <div className="tech-stack-section">
                     <div className="tech-stack-list">
                       {project.techStack.map((tech, i) => (
@@ -85,6 +85,14 @@ const ProjectDetails = () => {
                         </span>
                       ))}
                     </div>
+                  </div>
+                </div>
+                 <div>
+                    {project.demoLink && (
+                      <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="project-link" style={{textDecoration: 'none'}}>
+                        <h2 className="project-link">Demo <FaExternalLinkAlt /></h2>
+                      </a>
+                    )}
                   </div>
             </div>
               
