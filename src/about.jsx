@@ -17,6 +17,7 @@ import { RiJavascriptLine } from "react-icons/ri";
 import { GrMysql } from "react-icons/gr";
 import { GiTreasureMap } from "react-icons/gi";
 import profileImage from './assets/Portfolio/ChatGPT Image Jan 24, 2026, 04_59_57 PM.png'
+import resumePdf from './assets/RESUME.pdf'
 import AnimatedContent from './components/AnimatedContent.jsx'
 
 function About() {
@@ -25,6 +26,11 @@ function About() {
   const handleTreasureClick = () => {
     navigate('/hidden') // or whatever your hidden page route is
   }
+
+  const handleResumeClick = () => {
+    window.open(resumePdf, '_blank', 'noopener,noreferrer')
+  }
+
   return (
     <>
       <SplashCursor
@@ -145,7 +151,7 @@ function About() {
               threshold={0.1}
               delay={1.5}
             >
-              <div><button className="resume-button">RÉSUMÉ</button></div>
+              <div><button type="button" className="resume-button" onClick={handleResumeClick}>RÉSUMÉ</button></div>
             </AnimatedContent>
 
           </div>
